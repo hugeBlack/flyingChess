@@ -38,6 +38,9 @@ public class MapReader {
                     cellMap.put(Integer.parseInt(cellArgs[0]),cells.getLast());
                 }
                 br.close();
+                for(Cell cell:cells){
+                    cell.linkCells(cellMap);
+                }
             }
             fr.close();
         } catch (IOException e) {

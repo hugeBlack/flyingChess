@@ -1,5 +1,6 @@
 package hb.flyingChess.entity.cells;
 
+import java.util.HashMap;
 import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.cells.CellUi;
 
@@ -16,5 +17,10 @@ public abstract class Cell {
         this.cellUi = cellUi;
         this.nextCellId = nextCellId;
         this.thisId = thisId;
+    }
+    public void linkCells(HashMap<Integer, Cell> cellMap){
+        if(this.nextCellId!=0){
+            this.nextCell=cellMap.get(this.nextCellId);
+        }
     }
 }
