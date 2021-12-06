@@ -3,9 +3,12 @@ package hb.flyingChess.entity.cells;
 import java.util.HashMap;
 import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.cells.CellUi;
+import hb.flyingChess.utils.*;
+
+import java.awt.*;
 
 public abstract class Cell {
-    public CellUi cellUi;
+    private CellUi cellUi;
     public Cell nextCell;
     public Plane plane;
     public int planeCount;
@@ -22,5 +25,14 @@ public abstract class Cell {
         if(this.nextCellId!=0){
             this.nextCell=cellMap.get(this.nextCellId);
         }
+    }
+    public void draw(Graphics g){
+        cellUi.draw(g);
+    }
+    public HColor getColor(){
+        return this.cellUi.color;
+    }
+    public HPoint getCenterPos(){
+        return this.cellUi.center;
     }
 }

@@ -8,6 +8,7 @@ import hb.flyingChess.ui.PlayGround;
 
 public class MapReader {
     private LinkedList<Cell> cells = new LinkedList<>();
+    private LinkedList<AirportCell> airportCells= new LinkedList<>();  
     private HashMap<Integer, Cell> cellMap = new HashMap<>();
 
     public MapReader(String filePath, PlayGround playGround) throws FileNotFoundException {
@@ -34,6 +35,10 @@ public class MapReader {
                         cells.add(new DestinationCell(cellArgs, playGround));
                     } else if (cellArgs[1].equals("R")){
                         cells.add(new ReadyCell(cellArgs, playGround));
+                    } else if (cellArgs[1].equals("AP")){
+                        AirportCell airportCell = new AirportCell(cellArgs, playGround);
+                        cells.add(airportCell);
+                        airportCells.add(airportCell);
                     }
                     cellMap.put(Integer.parseInt(cellArgs[0]),cells.getLast());
                 }
@@ -49,5 +54,8 @@ public class MapReader {
     }
     public LinkedList<Cell> getCells(){
         return cells;
+    }
+    public LinkedList<AirportCell> getAirportCells(){
+        return airportCells;
     }
 }

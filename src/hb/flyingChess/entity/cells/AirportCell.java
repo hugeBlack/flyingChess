@@ -6,14 +6,14 @@ import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
 
-public class AvenueCell extends Cell{
-    public Cell previousAvenueCell;
-    public int previousAvenueCellId;
+public class AirportCell extends Cell{
+    public Cell readyCell;
+    public int readyCellId;
 
-    public AvenueCell(CellUi cellUi,int thisId,int nextCellId) {
+    public AirportCell(CellUi cellUi,int thisId,int nextCellId) {
         super(cellUi,thisId,nextCellId);
     }
-    public AvenueCell(String[] cellArgs, PlayGround playGround) {
+    public AirportCell(String[] cellArgs, PlayGround playGround) {
         this(
                 new AvenueCellUi(
                         TypeHelpers.str2Facing(cellArgs[2]),
@@ -22,10 +22,10 @@ public class AvenueCell extends Cell{
                         new HPoint(Integer.parseInt(cellArgs[4]), Integer.parseInt(cellArgs[5]))),
                 Integer.parseInt(cellArgs[0]),
                 Integer.parseInt(cellArgs[6]));
-        previousAvenueCellId = Integer.parseInt(cellArgs[7]);
+        readyCellId = Integer.parseInt(cellArgs[7]);
     }
     public void linkCells(HashMap<Integer, Cell> cellMap){
-        this.previousAvenueCell=cellMap.get(this.previousAvenueCellId);
+        this.readyCell=cellMap.get(this.readyCellId);
         super.linkCells(cellMap);
     }
 

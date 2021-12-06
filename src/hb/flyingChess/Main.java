@@ -9,7 +9,7 @@ public class Main {
         PlayGround playGround = new PlayGround(gameWindow);
         gameWindow.add(playGround);
         MapReader mapReader = new MapReader("assets/map.txt",playGround);
-        playGround.setCells(mapReader.getCells());
+        playGround.init(mapReader);
         playGround.repaint();
     }
 }
