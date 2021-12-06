@@ -13,7 +13,7 @@ public class TypeHelpers {
             case YELLOW:
                 return Color.yellow;
             default:
-                return Color.pink;
+                return null;
         }
     }
 
