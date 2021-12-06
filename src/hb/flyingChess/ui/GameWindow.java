@@ -14,8 +14,8 @@ public class GameWindow extends JFrame{
         int screenWidth = screenSize.width; //获取屏幕的宽
         int screenHeight = screenSize.height; //获取屏幕的高
         //设置窗口居中
-        this.setLocation(screenWidth/2-windowWidth/2, screenHeight/2-windowHeight/2);//设置窗口居中显示
-
+        setLocation(screenWidth/2-windowWidth/2, screenHeight/2-windowHeight/2);//设置窗口居中显示
+        setLayout(null);
         setVisible(true);
     }
 }

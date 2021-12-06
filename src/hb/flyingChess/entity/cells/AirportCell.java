@@ -2,6 +2,7 @@ package hb.flyingChess.entity.cells;
 
 import java.util.HashMap;
 
+import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
@@ -27,6 +28,9 @@ public class AirportCell extends Cell{
     public void linkCells(HashMap<Integer, Cell> cellMap){
         this.readyCell=cellMap.get(this.readyCellId);
         super.linkCells(cellMap);
+    }
+    public Cell getNextCell(Plane plane){
+        return readyCell;
     }
 
     @Override

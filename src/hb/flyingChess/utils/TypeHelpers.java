@@ -5,13 +5,13 @@ public class TypeHelpers {
     public static Color hColor2AwtColor(HColor hColor){
         switch(hColor){
             case BLUE:
-                return Color.blue;
+                return new Color(91,163,235);
             case GREEN:
-                return Color.green;
+                return new Color(6,187,154);
             case RED:
-                return Color.red;
+                return new Color(248,77,77);
             case YELLOW:
-                return Color.yellow;
+                return new Color(244,185,25);
             default:
                 return null;
         }

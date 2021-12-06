@@ -1,6 +1,8 @@
 package hb.flyingChess.entity.cells;
 
 import java.util.HashMap;
+
+import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 
@@ -17,6 +19,13 @@ public class NormalEntranceCell extends NormalCell{
     public void linkCells(HashMap<Integer, Cell> cellMap){
         this.nextAvenueCell=cellMap.get(this.nextAvenueCellId);
         super.linkCells(cellMap);
+    }
+
+    public Cell getNextCell(Plane plane){
+        if(plane.getColor()==this.cellUi.color){
+            return nextAvenueCell;
+        }
+        return nextCell;
     }
 
     @Override

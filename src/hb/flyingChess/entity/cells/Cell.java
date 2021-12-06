@@ -8,8 +8,8 @@ import hb.flyingChess.utils.*;
 import java.awt.*;
 
 public abstract class Cell {
-    private CellUi cellUi;
-    public Cell nextCell;
+    protected CellUi cellUi;
+    protected Cell nextCell;
     public Plane plane;
     public int planeCount;
     public int nextCellId;
@@ -34,5 +34,8 @@ public abstract class Cell {
     }
     public HPoint getCenterPos(){
         return this.cellUi.center;
+    }
+    public Cell getNextCell(Plane plane){
+        return nextCell;
     }
 }

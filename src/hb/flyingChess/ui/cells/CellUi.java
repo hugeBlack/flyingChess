@@ -5,9 +5,8 @@ import hb.flyingChess.utils.*;
 
 import java.awt.*;
 
-public abstract class CellUi {
+public abstract class CellUi implements Drawable{
     public HColor color;
-    public abstract void draw(Graphics g);
     public PlayGround playGround;
     protected HPoint pos;
     public HPoint center;

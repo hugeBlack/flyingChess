@@ -4,15 +4,19 @@ import hb.flyingChess.utils.*;
 
 import java.awt.*;
 
-public class PlaneUi {
+public class PlaneUi implements Drawable{
     public HColor color;
     public HPoint centerPoint;
     public HPoint lookingPoint;
     public PlayGround playGround;
+    public boolean isSelected = false;
 
     public void draw(Graphics g) {
         HPoint realPos = new HPoint(centerPoint,-18,-18);
         g.drawImage(getImage(), realPos.x,realPos.y,36,36,playGround);
+        if(isSelected){
+            g.drawRect(centerPoint.x-20, centerPoint.y-20, 40, 40);
+        }
     }
 
     public PlaneUi(HColor color, HPoint centerPoint,PlayGround playGround) {
@@ -38,11 +42,11 @@ public class PlaneUi {
         if (dy > ndx && dy <= dx) {
             return "r";
         } else if (dy >= ndx && dy > dx) {
-            return "u";
+            return "d";
         } else if (dy < ndx && dy >= dx) {
             return "l";
         } else {
-            return "d";
+            return "u";
         }
     }
     private String getColorStr() {
