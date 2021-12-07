@@ -1,31 +1,36 @@
 package hb.flyingChess.entity.cells;
 
+import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.Plane;
-import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
 
-public class ReadyCell extends Cell{
+public class ReadyCell extends Cell {
 
-    public ReadyCell(CellUi cellUi,int thisId,int nextCellId) {
-        super(cellUi,thisId,nextCellId);
+    public ReadyCell(CellUi cellUi, int thisId, int nextCellId, GameManager gameManager) {
+        super(cellUi, thisId, nextCellId, gameManager);
     }
-    public ReadyCell(String[] cellArgs,PlayGround playGround){
+
+    public ReadyCell(String[] cellArgs, GameManager gameManager) {
         this(
-            new ReadyCellUi(
-                TypeHelpers.str2Facing(cellArgs[2]), 
-                TypeHelpers.str2hColor(cellArgs[3]), 
-                playGround ,
-                new HPoint(Integer.parseInt(cellArgs[4]),Integer.parseInt(cellArgs[5]))
-                ),
-            Integer.parseInt(cellArgs[0]), 
-            Integer.parseInt(cellArgs[6])
-            );
+                new ReadyCellUi(
+                        TypeHelpers.str2Facing(cellArgs[2]),
+                        TypeHelpers.str2hColor(cellArgs[3]),
+                        gameManager.getPlayGround(),
+                        new HPoint(Integer.parseInt(cellArgs[4]), Integer.parseInt(cellArgs[5]))),
+                Integer.parseInt(cellArgs[0]),
+                Integer.parseInt(cellArgs[6]),
+                gameManager);
+    }
+    
+    @Override
+    public void moveToAction(Plane plane, MoveStatus moveStatus) {
+
     }
 
     @Override
     public Cell getNextCell(Plane plane, MoveStatus moveStatus) {
         return nextCell;
     }
-    
+
 }

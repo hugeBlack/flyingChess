@@ -1,30 +1,31 @@
 package hb.flyingChess.entity.cells;
 
+import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.Plane;
-import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
 
-public class TriangleCell extends Cell{
+public class TriangleCell extends Cell {
 
-    public TriangleCell(CellUi cellUi,int thisId,int nextCellId) {
-        super(cellUi,thisId,nextCellId);
+    public TriangleCell(CellUi cellUi, int thisId, int nextCellId, GameManager gameManager) {
+        super(cellUi, thisId, nextCellId, gameManager);
     }
-    public TriangleCell(String[] cellArgs, PlayGround playGround) {
+
+    public TriangleCell(String[] cellArgs, GameManager gameManager) {
         this(
                 new TriangleCellUi(
                         TypeHelpers.str2Facing(cellArgs[2]),
                         TypeHelpers.str2hColor(cellArgs[3]),
-                        playGround,
+                        gameManager.getPlayGround(),
                         new HPoint(Integer.parseInt(cellArgs[4]), Integer.parseInt(cellArgs[5]))),
                 Integer.parseInt(cellArgs[0]),
-                Integer.parseInt(cellArgs[6])
-                );
+                Integer.parseInt(cellArgs[6]),
+                gameManager);
     }
 
     @Override
     public Cell getNextCell(Plane plane, MoveStatus moveStatus) {
         return nextCell;
     }
-    
+
 }

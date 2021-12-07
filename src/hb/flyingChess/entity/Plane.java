@@ -1,5 +1,6 @@
 package hb.flyingChess.entity;
 
+import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.cells.*;
 import hb.flyingChess.ui.PlaneUi;
 import hb.flyingChess.ui.PlayGround;
@@ -9,15 +10,16 @@ import hb.flyingChess.utils.MovementFlag;
 
 import java.awt.*;
 
-public class Plane {
+public class Plane extends Entity{
     private PlaneUi planeUi;
     private Cell currentCell;
     private Cell airportCell;
-
-    public Plane(AirportCell airportCell, PlayGround playGround) {
+    public Plane(AirportCell airportCell, PlayGround playGround, GameManager gameManager) {
+        super(gameManager);
         planeUi = new PlaneUi(airportCell.getColor(), airportCell.getCenterPos(), playGround);
         this.airportCell = airportCell;
         this.currentCell = airportCell;
+        this.gameManager = gameManager;
     }
 
     public void draw(Graphics g) {
@@ -26,6 +28,10 @@ public class Plane {
 
     public HColor getColor() {
         return planeUi.color;
+    }
+
+    public Cell getCurrentCell() {
+        return currentCell;
     }
 
     private boolean isHoveredByMouse(int mouseX, int mouseY) {
@@ -54,20 +60,20 @@ public class Plane {
     public boolean mouseHoverEventHandler(int mouseX, int mouseY) {
         if (isHoveredByMouse(mouseX, mouseY)) {
             this.planeUi.isSelected = true;
-            this.planeUi.playGround.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            this.planeUi.playGround.repaint();
+            gameManager.getPlayGround().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            gameManager.getPlayGround().repaint();
             return true;
         } else if (this.planeUi.isSelected) {
             this.planeUi.isSelected = false;
-            this.planeUi.playGround.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            this.planeUi.playGround.repaint();
+            gameManager.getPlayGround().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            gameManager.getPlayGround().repaint();
         }
         return false;
     }
 
     public boolean mouseClickEventHandler(int mouseX, int mouseY) {
         if (isHoveredByMouse(mouseX, mouseY)) {
-            move(3, MovementFlag.NORMAL_FORWARD);
+            move(1, MovementFlag.NORMAL_FORWARD);
             return true;
         }
         return false;
@@ -82,7 +88,7 @@ public class Plane {
             this.planeUi.lookingPoint = destinationCell.getNextCell(this, new MoveStatus(0, MovementFlag.OBSERVE))
                     .getCenterPos();
         }
-        this.planeUi.playGround.repaint();
+        gameManager.getPlayGround().repaint();
     }
 
     public void goHome() {
