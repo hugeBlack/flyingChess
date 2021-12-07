@@ -2,6 +2,7 @@ package hb.flyingChess.entity.cells;
 
 import java.util.HashMap;
 
+import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
@@ -30,15 +31,15 @@ public class AvenueCell extends Cell{
     }
 
     @Override
-    public void moveTo() {
-        // TODO Auto-generated method stub
+    public void moveToAction(Plane plane ,MoveStatus moveStatus) {
         
     }
-
     @Override
-    public void jumpTo() {
-        // TODO Auto-generated method stub
-        
+    public Cell getNextCell(Plane plane, MoveStatus moveStatus) {
+        if(moveStatus.movementFlag==MovementFlag.BACKWARD){
+            return this.previousAvenueCell;
+        }
+        return nextCell;
     }
     
 }

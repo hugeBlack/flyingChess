@@ -10,12 +10,14 @@ import java.awt.*;
 public abstract class Cell {
     protected CellUi cellUi;
     protected Cell nextCell;
-    public Plane plane;
     public int planeCount;
     public int nextCellId;
     public int thisId;
-    public abstract void moveTo();
-    public abstract void jumpTo();
+    public void moveToAction(Plane plane,MoveStatus moveStatus){
+        if(moveStatus.movementFlag==MovementFlag.NORMAL_FORWARD && plane.getColor() == this.getColor()){
+            plane.move(4,MovementFlag.JUMPING);
+        }
+    }
     public Cell(CellUi cellUi,int thisId,int nextCellId){
         this.cellUi = cellUi;
         this.nextCellId = nextCellId;
@@ -35,7 +37,5 @@ public abstract class Cell {
     public HPoint getCenterPos(){
         return this.cellUi.center;
     }
-    public Cell getNextCell(Plane plane){
-        return nextCell;
-    }
+    public abstract Cell getNextCell(Plane plane,MoveStatus moveStatus);
 }

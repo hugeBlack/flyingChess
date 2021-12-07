@@ -1,11 +1,14 @@
 package hb.flyingChess.entity.cells;
 
+import java.util.HashMap;
+
+import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
 
 public class DestinationCell extends Cell {
-    public AvenueCell previousAvenueCell;
+    public Cell previousAvenueCell;
     public int previousAvenueCellId;
 
     public DestinationCell(CellUi cellUi, int thisId, int nextCellId) {
@@ -26,15 +29,21 @@ public class DestinationCell extends Cell {
     }
 
     @Override
-    public void moveTo() {
-        // TODO Auto-generated method stub
-
+    public void moveToAction(Plane plane ,MoveStatus moveStatus) {
+        System.out.println("win!");
     }
 
-    @Override
-    public void jumpTo() {
-        // TODO Auto-generated method stub
+    public void linkCells(HashMap<Integer, Cell> cellMap){
+        this.previousAvenueCell=cellMap.get(this.previousAvenueCellId);
+        super.linkCells(cellMap);
+    }
 
+    public Cell getNextCell(Plane plane,MoveStatus moveStatus){
+        if(moveStatus.movementFlag==MovementFlag.NORMAL_FORWARD && moveStatus.stepLeft>0){
+            moveStatus.movementFlag = MovementFlag.BACKWARD;
+            return this.previousAvenueCell;
+        }
+        return this;
     }
 
 }

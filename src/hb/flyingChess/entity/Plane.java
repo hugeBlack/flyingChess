@@ -4,6 +4,8 @@ import hb.flyingChess.entity.cells.*;
 import hb.flyingChess.ui.PlaneUi;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.utils.HColor;
+import hb.flyingChess.utils.MoveStatus;
+import hb.flyingChess.utils.MovementFlag;
 
 import java.awt.*;
 
@@ -11,6 +13,7 @@ public class Plane {
     private PlaneUi planeUi;
     private Cell currentCell;
     private Cell airportCell;
+
     public Plane(AirportCell airportCell, PlayGround playGround) {
         planeUi = new PlaneUi(airportCell.getColor(), airportCell.getCenterPos(), playGround);
         this.airportCell = airportCell;
@@ -33,17 +36,17 @@ public class Plane {
         return false;
     }
 
-    private void move(int step){
-        Cell destinationCell = getDestinationCell(step,currentCell);
-        this.currentCell = destinationCell;
-        this.planeUi.centerPoint = destinationCell.getCenterPos();
-        this.planeUi.lookingPoint = destinationCell.getNextCell(this).getCenterPos();
-        this.planeUi.playGround.repaint();
+    public void move(int step, MovementFlag movementFlag) {
+        MoveStatus moveStatus = new MoveStatus(step, movementFlag);
+        Cell destinationCell = getDestinationCell(currentCell, moveStatus);
+        moveTo(destinationCell);
+        destinationCell.moveToAction(this, moveStatus);
     }
-    private Cell getDestinationCell(int stepLeft,Cell currentCell){
-        if(stepLeft>0){
-            stepLeft--;
-            return getDestinationCell(stepLeft,currentCell.getNextCell(this));
+
+    private Cell getDestinationCell(Cell currentCell, MoveStatus moveStatus) {
+        if (moveStatus.stepLeft > 0) {
+            moveStatus.stepLeft--;
+            return getDestinationCell(currentCell.getNextCell(this, moveStatus), moveStatus);
         }
         return currentCell;
     }
@@ -64,16 +67,25 @@ public class Plane {
 
     public boolean mouseClickEventHandler(int mouseX, int mouseY) {
         if (isHoveredByMouse(mouseX, mouseY)) {
-            move(1);
+            move(3, MovementFlag.NORMAL_FORWARD);
             return true;
         }
         return false;
     }
 
-    public void goHome(){
-        this.currentCell = airportCell;
-        this.planeUi.centerPoint = airportCell.getCenterPos();
-        this.planeUi.lookingPoint = airportCell.getCenterPos();
+    public void moveTo(Cell destinationCell) {
+        this.currentCell = destinationCell;
+        this.planeUi.centerPoint = destinationCell.getCenterPos();
+        if (destinationCell == airportCell) {
+            this.planeUi.lookingPoint = destinationCell.getCenterPos();
+        } else {
+            this.planeUi.lookingPoint = destinationCell.getNextCell(this, new MoveStatus(0, MovementFlag.OBSERVE))
+                    .getCenterPos();
+        }
         this.planeUi.playGround.repaint();
+    }
+
+    public void goHome() {
+        moveTo(airportCell);
     }
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
+import hb.flyingChess.utils.MoveStatus;
 
 public class NormalEntranceCell extends NormalCell{
     int nextAvenueCellId;
@@ -21,23 +22,11 @@ public class NormalEntranceCell extends NormalCell{
         super.linkCells(cellMap);
     }
 
-    public Cell getNextCell(Plane plane){
+    public Cell getNextCell(Plane plane, MoveStatus moveStatus){
         if(plane.getColor()==this.cellUi.color){
             return nextAvenueCell;
         }
         return nextCell;
-    }
-
-    @Override
-    public void moveTo() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void jumpTo() {
-        // TODO Auto-generated method stub
-        
     }
     
 }

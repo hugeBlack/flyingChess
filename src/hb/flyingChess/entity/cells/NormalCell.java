@@ -1,5 +1,6 @@
 package hb.flyingChess.entity.cells;
 
+import hb.flyingChess.entity.Plane;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.cells.*;
 import hb.flyingChess.utils.*;
@@ -22,15 +23,8 @@ public class NormalCell extends Cell{
     }
 
     @Override
-    public void moveTo() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void jumpTo() {
-        // TODO Auto-generated method stub
-        
+    public Cell getNextCell(Plane plane, MoveStatus moveStatus) {
+        return nextCell;
     }
     
 }

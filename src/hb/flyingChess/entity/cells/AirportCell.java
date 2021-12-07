@@ -29,20 +29,10 @@ public class AirportCell extends Cell{
         this.readyCell=cellMap.get(this.readyCellId);
         super.linkCells(cellMap);
     }
-    public Cell getNextCell(Plane plane){
+
+    @Override
+    public Cell getNextCell(Plane plane, MoveStatus moveStatus) {
         return readyCell;
-    }
-
-    @Override
-    public void moveTo() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void jumpTo() {
-        // TODO Auto-generated method stub
-        
     }
     
 }
