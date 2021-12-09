@@ -20,13 +20,13 @@ public class TypeHelpers {
     public static String hColor2Str(HColor hColor){
         switch(hColor){
             case BLUE:
-                return "蓝";
+                return "蓝方";
             case GREEN:
-                return "绿";
+                return "绿方";
             case RED:
-                return "红";
+                return "红方";
             case YELLOW:
-                return "黄";
+                return "黄方";
             default:
                 return null;
         }

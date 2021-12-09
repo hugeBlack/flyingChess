@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 import hb.flyingChess.entity.*;
+import hb.flyingChess.logic.Dice;
 import hb.flyingChess.ui.GameWindow;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.utils.HColor;
@@ -12,12 +13,12 @@ import hb.flyingChess.utils.TypeHelpers;
 
 public class GameManager {
     private LinkedList<Player> players = new LinkedList<>();
-    private int currentPlayerIndex = 0;
+    private int currentPlayerIndex = -1;
     private LinkedList<Plane> planes = new LinkedList<>();
     private PlayGround playGround;
     private int wonPlayerCount = 0;
-    private int nowDicePoint = 5;
     private boolean isGameEnded = false;
+    private Dice dice = new Dice();
 
     public GameManager(String mapPath, GameWindow gameWindow, HColor[] playerOrder) throws FileNotFoundException {
         playGround = new PlayGround(gameWindow, this);
@@ -28,8 +29,8 @@ public class GameManager {
         for (HColor hColor : playerOrder) {
             players.add(new Player(hColor, this));
         }
-        currentPlayerIndex = 0;
         playGround.repaint();
+        start();
     }
 
     public Player getCurrentPlayer() {
@@ -45,7 +46,7 @@ public class GameManager {
     }
 
     public int getNowDicePoint() {
-        return nowDicePoint;
+        return dice.getLastPoint();
     }
 
     public void outputMsg(String str) {
@@ -53,7 +54,7 @@ public class GameManager {
     }
 
     public void start() {
-
+        nextTurn();
         outputMsg("Game Start!");
 
     }
@@ -62,11 +63,11 @@ public class GameManager {
         for (Player player : players) {
             if (player.testWon() && !player.wonMsgAnnounced) {
                 player.setWon();
-                outputMsg(TypeHelpers.hColor2Str(player.getColor()) + "方的飞机全部达到了终点,获得了第" + (++wonPlayerCount) + "名!");
+                outputMsg(TypeHelpers.hColor2Str(player.getColor()) + "的飞机全部达到了终点,获得了第" + (++wonPlayerCount) + "名!");
             }
         }
         if (wonPlayerCount >= players.size()) {
-            outputMsg("游戏结束！");
+            outputMsg("游戏结束!");
             isGameEnded = true;
         }
     }
@@ -75,11 +76,13 @@ public class GameManager {
         if(isGameEnded){
             return;
         }
-        if(currentPlayerIndex==players.size()-1){
-            currentPlayerIndex=0;
-        }else{
-            currentPlayerIndex++;
+        if(!dice.canPlayerHaveBounsTurn()){
+            if (currentPlayerIndex == players.size() - 1) {
+                currentPlayerIndex = 0;
+            } else {
+                currentPlayerIndex++;
+            }
         }
-        
+        outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"的回合，请丢骰子");
     }
 }

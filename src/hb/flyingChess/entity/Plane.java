@@ -85,9 +85,10 @@ public class Plane extends Entity{
         if (isHoveredByMouse(mouseX, mouseY)) {
             if(gameManager.getCurrentPlayer().getColor()==this.getColor()){
                 move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
-                gameManager.outputMsg(TypeHelpers.hColor2Str(this.getColor())+"方的飞机前进了"+gameManager.getNowDicePoint()+"格");
+                gameManager.outputMsg(TypeHelpers.hColor2Str(this.getColor())+"的飞机前进了"+gameManager.getNowDicePoint()+"格");
+                gameManager.nextTurn();
             }else{
-                gameManager.outputMsg("现在是你，"+TypeHelpers.hColor2Str(gameManager.getCurrentPlayer().getColor())+"方的回合，你不可以操作"+TypeHelpers.hColor2Str(this.getColor())+"方的飞机");
+                gameManager.outputMsg("现在是你，"+TypeHelpers.hColor2Str(gameManager.getCurrentPlayer().getColor())+"的回合，你不可以操作"+TypeHelpers.hColor2Str(this.getColor())+"的飞机");
             }
             return true;
         }
