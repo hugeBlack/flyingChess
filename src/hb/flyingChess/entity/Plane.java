@@ -7,6 +7,7 @@ import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.utils.HColor;
 import hb.flyingChess.utils.MoveStatus;
 import hb.flyingChess.utils.MovementFlag;
+import hb.flyingChess.utils.TypeHelpers;
 
 import java.awt.*;
 
@@ -14,12 +15,21 @@ public class Plane extends Entity{
     private PlaneUi planeUi;
     private Cell currentCell;
     private Cell airportCell;
+    private boolean finished = false;
     public Plane(AirportCell airportCell, PlayGround playGround, GameManager gameManager) {
         super(gameManager);
         planeUi = new PlaneUi(airportCell.getColor(), airportCell.getCenterPos(), playGround);
         this.airportCell = airportCell;
         this.currentCell = airportCell;
         this.gameManager = gameManager;
+    }
+
+    public boolean isFinished(){
+        return this.finished;
+    }
+
+    public void setFinish(){
+        this.finished = true;
     }
 
     public void draw(Graphics g) {
@@ -73,7 +83,12 @@ public class Plane extends Entity{
 
     public boolean mouseClickEventHandler(int mouseX, int mouseY) {
         if (isHoveredByMouse(mouseX, mouseY)) {
-            move(1, MovementFlag.NORMAL_FORWARD);
+            if(gameManager.getCurrentPlayer().getColor()==this.getColor()){
+                move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
+                gameManager.outputMsg(TypeHelpers.hColor2Str(this.getColor())+"方的飞机前进了"+gameManager.getNowDicePoint()+"格");
+            }else{
+                gameManager.outputMsg("现在是你，"+TypeHelpers.hColor2Str(gameManager.getCurrentPlayer().getColor())+"方的回合，你不可以操作"+TypeHelpers.hColor2Str(this.getColor())+"方的飞机");
+            }
             return true;
         }
         return false;

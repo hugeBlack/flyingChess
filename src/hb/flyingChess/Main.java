@@ -1,12 +1,15 @@
 package hb.flyingChess;
 
+import java.io.FileNotFoundException;
+
 import hb.flyingChess.ui.*;
 import hb.flyingChess.utils.HColor;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws FileNotFoundException {
         GameWindow gameWindow = new GameWindow();
-        GameManager game = new GameManager("assets/map.txt",gameWindow,HColor.BLUE);
+        HColor[] playerOrder = {HColor.BLUE,HColor.GREEN,HColor.RED,HColor.YELLOW};
+        GameManager game = new GameManager("assets/map.txt",gameWindow,playerOrder);
         
     }
 }

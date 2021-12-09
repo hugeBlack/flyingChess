@@ -30,7 +30,9 @@ public class DestinationCell extends Cell {
 
     @Override
     public void moveToAction(Plane plane, MoveStatus moveStatus) {
-        System.out.println("win!");
+        gameManager.outputMsg(TypeHelpers.hColor2Str(this.getColor())+"方的飞机到达了终点！");
+        plane.setFinish();
+        gameManager.updateWonStatus();
     }
 
     public void linkCells(HashMap<Integer, Cell> cellMap) {

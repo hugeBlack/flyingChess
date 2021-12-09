@@ -16,12 +16,12 @@ public class PlayGround extends JPanel {
     private LinkedList<Cell> cells = new LinkedList<>();
     private LinkedList<Plane> planes = new LinkedList<>();
     private GameManager gameManager;
-    public PlayGround(GameWindow gameWindow,GameManager gameManager) {
+
+    public PlayGround(GameWindow gameWindow, GameManager gameManager) {
         this.gameManager = gameManager;
         setSize(680, 680);
-        System.out.println(this.getWidth());
-        addMouseMotionListener(new MouseMoveListener(planes));
-        addMouseListener(new MouseClickListener(planes));
+        addMouseMotionListener(new MouseMoveListener(planes, gameManager));
+        addMouseListener(new MouseClickListener(planes, gameManager));
     }
 
     public void paint(Graphics g) {
@@ -38,7 +38,7 @@ public class PlayGround extends JPanel {
     public void init(MapReader mapReader) {
         this.cells = mapReader.getCells();
         for (AirportCell airportCell : mapReader.getAirportCells()) {
-            planes.add(new Plane(airportCell, this ,gameManager));
+            planes.add(new Plane(airportCell, this, gameManager));
         }
     }
 
