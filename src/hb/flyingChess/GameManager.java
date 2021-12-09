@@ -18,6 +18,7 @@ public class GameManager {
     private PlayGround playGround;
     private int wonPlayerCount = 0;
     private boolean isGameEnded = false;
+    private boolean isDiceRolled = false;
     private Dice dice = new Dice();
 
     public GameManager(String mapPath, GameWindow gameWindow, HColor[] playerOrder) throws FileNotFoundException {
@@ -76,13 +77,35 @@ public class GameManager {
         if(isGameEnded){
             return;
         }
+        isDiceRolled = false;
         if(!dice.canPlayerHaveBounsTurn()){
             if (currentPlayerIndex == players.size() - 1) {
                 currentPlayerIndex = 0;
             } else {
                 currentPlayerIndex++;
             }
+        }else{
+            dice.useBouns();
+            outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"由于丢到6，额外获得一回合");
         }
         outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"的回合，请丢骰子");
+    }
+
+    public void rollDice(){
+        if(isDiceRolled){
+            outputMsg("你已经丢过骰子了，请操作你的飞机");
+            return;
+        }
+        isDiceRolled = true;
+        dice.roll();
+        outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"丢到了"+dice.getLastPoint()+"点");
+        if(!getCurrentPlayer().hasAvailablePlane() && dice.getLastPoint()<5){
+            outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"不能起飞，跳过这回合");
+            nextTurn();
+        }
+    }
+
+    public boolean getIsDiceRolled(){
+        return isDiceRolled;
     }
 }

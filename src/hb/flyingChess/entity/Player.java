@@ -3,6 +3,7 @@ package hb.flyingChess.entity;
 import java.util.LinkedList;
 
 import hb.flyingChess.GameManager;
+import hb.flyingChess.entity.cells.AirportCell;
 import hb.flyingChess.utils.HColor;
 
 public class Player extends Entity {
@@ -40,6 +41,15 @@ public class Player extends Entity {
 
     public HColor getColor() {
         return color;
+    }
+
+    public boolean hasAvailablePlane(){
+        for(Plane plane:planes){
+            if(!(plane.getCurrentCell() instanceof AirportCell)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

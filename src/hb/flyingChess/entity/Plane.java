@@ -83,13 +83,27 @@ public class Plane extends Entity{
 
     public boolean mouseClickEventHandler(int mouseX, int mouseY) {
         if (isHoveredByMouse(mouseX, mouseY)) {
-            if(gameManager.getCurrentPlayer().getColor()==this.getColor()){
-                move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
-                gameManager.outputMsg(TypeHelpers.hColor2Str(this.getColor())+"的飞机前进了"+gameManager.getNowDicePoint()+"格");
-                gameManager.nextTurn();
+            if(gameManager.getIsDiceRolled()){
+                if(gameManager.getCurrentPlayer().getColor()==this.getColor()){
+                if(this.currentCell instanceof AirportCell){
+                    if(gameManager.getNowDicePoint()>4){
+                        gameManager.outputMsg(TypeHelpers.hColor2Str(this.getColor())+"的飞机起飞了");
+                        move(1, MovementFlag.NORMAL_FORWARD);
+                        gameManager.nextTurn();
+                    }else{
+                        gameManager.outputMsg("你的点数不足5，飞机无法起飞，请选择其他飞机");
+                    }
+                }else{
+                    move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
+                    gameManager.nextTurn();
+                }
             }else{
                 gameManager.outputMsg("现在是你，"+TypeHelpers.hColor2Str(gameManager.getCurrentPlayer().getColor())+"的回合，你不可以操作"+TypeHelpers.hColor2Str(this.getColor())+"的飞机");
             }
+            }else{
+                gameManager.outputMsg("请先丢骰子再操作飞机");
+            }
+            
             return true;
         }
         return false;
