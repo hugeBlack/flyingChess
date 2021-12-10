@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 
+import hb.flyingChess.logic.GameManager;
 import hb.flyingChess.logic.RollDiceBtnClicked;
 import hb.flyingChess.ui.*;
 import hb.flyingChess.utils.HColor;

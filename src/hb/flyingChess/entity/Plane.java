@@ -1,7 +1,7 @@
 package hb.flyingChess.entity;
 
-import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.cells.*;
+import hb.flyingChess.logic.GameManager;
 import hb.flyingChess.ui.PlaneUi;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.utils.HColor;
@@ -94,8 +94,13 @@ public class Plane extends Entity{
                         gameManager.outputMsg("你的点数不足5，飞机无法起飞，请选择其他飞机");
                     }
                 }else{
-                    move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
-                    gameManager.nextTurn();
+                    if(this.currentCell instanceof DestinationCell){
+                        move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
+                        gameManager.nextTurn();
+                    }else{
+                        gameManager.outputMsg("这架飞机已经到达终点了，请选择其他飞机");
+                    }
+                    
                 }
             }else{
                 gameManager.outputMsg("现在是你，"+TypeHelpers.hColor2Str(gameManager.getCurrentPlayer().getColor())+"的回合，你不可以操作"+TypeHelpers.hColor2Str(this.getColor())+"的飞机");

@@ -3,7 +3,6 @@ package hb.flyingChess.logic;
 import java.awt.event.*;
 import java.util.LinkedList;
 
-import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.Plane;
 
 public class MouseMoveListener extends MouseMotionAdapter {

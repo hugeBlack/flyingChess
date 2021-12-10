@@ -6,7 +6,6 @@ import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
-import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.Plane;
 import hb.flyingChess.entity.cells.*;
 import hb.flyingChess.logic.*;

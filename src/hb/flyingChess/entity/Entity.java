@@ -1,6 +1,6 @@
 package hb.flyingChess.entity;
 
-import hb.flyingChess.GameManager;
+import hb.flyingChess.logic.GameManager;
 
 public abstract class Entity {
     protected GameManager gameManager;

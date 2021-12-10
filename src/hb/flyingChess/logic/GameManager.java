@@ -1,10 +1,9 @@
-package hb.flyingChess;
+package hb.flyingChess.logic;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 import hb.flyingChess.entity.*;
-import hb.flyingChess.logic.Dice;
 import hb.flyingChess.ui.GameWindow;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.utils.HColor;

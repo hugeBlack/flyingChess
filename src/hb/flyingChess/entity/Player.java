@@ -2,8 +2,9 @@ package hb.flyingChess.entity;
 
 import java.util.LinkedList;
 
-import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.cells.AirportCell;
+import hb.flyingChess.entity.cells.DestinationCell;
+import hb.flyingChess.logic.GameManager;
 import hb.flyingChess.utils.HColor;
 
 public class Player extends Entity {
@@ -45,7 +46,7 @@ public class Player extends Entity {
 
     public boolean hasAvailablePlane(){
         for(Plane plane:planes){
-            if(!(plane.getCurrentCell() instanceof AirportCell)){
+            if(!(plane.getCurrentCell() instanceof AirportCell && plane.getCurrentCell() instanceof DestinationCell)){
                 return true;
             }
         }

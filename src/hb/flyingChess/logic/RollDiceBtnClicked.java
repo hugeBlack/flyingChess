@@ -2,8 +2,6 @@ package hb.flyingChess.logic;
 
 import java.awt.event.*;
 
-import hb.flyingChess.GameManager;
-
 public class RollDiceBtnClicked extends MouseAdapter {
     GameManager gameManager;
 

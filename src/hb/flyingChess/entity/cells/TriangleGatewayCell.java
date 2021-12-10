@@ -2,8 +2,8 @@ package hb.flyingChess.entity.cells;
 
 import java.util.HashMap;
 
-import hb.flyingChess.GameManager;
 import hb.flyingChess.entity.Plane;
+import hb.flyingChess.logic.GameManager;
 import hb.flyingChess.ui.cells.CellUi;
 import hb.flyingChess.utils.MoveStatus;
 import hb.flyingChess.utils.MovementFlag;
