@@ -3,7 +3,6 @@ package hb.flyingChess.entity;
 import hb.flyingChess.entity.cells.*;
 import hb.flyingChess.logic.GameManager;
 import hb.flyingChess.ui.PlaneUi;
-import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.utils.HColor;
 import hb.flyingChess.utils.MoveStatus;
 import hb.flyingChess.utils.MovementFlag;
@@ -14,22 +13,17 @@ public class Plane extends Entity {
     private PlaneUi planeUi;
     private Cell currentCell;
     private Cell airportCell;
-    private boolean finished = false;
 
-    public Plane(AirportCell airportCell, PlayGround playGround, GameManager gameManager) {
+    public Plane(AirportCell airportCell, GameManager gameManager) {
         super(gameManager);
-        planeUi = new PlaneUi(airportCell.getColor(), airportCell.getCenterPos(), playGround);
+        planeUi = new PlaneUi(airportCell.getColor(), airportCell.getCenterPos(), gameManager.getPlayGround());
         this.airportCell = airportCell;
         this.currentCell = airportCell;
         this.gameManager = gameManager;
     }
 
     public boolean isFinished() {
-        return this.finished;
-    }
-
-    public void setFinish() {
-        this.finished = true;
+        return this.currentCell instanceof DestinationCell;
     }
 
     public void draw(Graphics g) {

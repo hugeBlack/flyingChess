@@ -38,7 +38,7 @@ public class PlayGround extends JPanel {
     public void init(MapReader mapReader) {
         this.cells = mapReader.getCells();
         for (AirportCell airportCell : mapReader.getAirportCells()) {
-            planes.add(new Plane(airportCell, this, gameManager));
+            planes.add(new Plane(airportCell, gameManager));
         }
     }
 
