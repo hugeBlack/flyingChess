@@ -23,7 +23,7 @@ public abstract class Cell extends Entity {
         }
         for (Plane otherPlane : getGameManager().getPlanes()) {
             if (otherPlane.getColor() != plane.getColor() && otherPlane.getCurrentCell() == plane.getCurrentCell()) {
-                gameManager.outputMsg(TypeHelpers.hColor2Str(plane.getColor())+"的飞机击毁了"+TypeHelpers.hColor2Str(otherPlane.getColor())+"的飞机！");
+                gameManager.outputMsg(plane.getColor()+"的飞机击毁了"+otherPlane.getColor()+"的飞机！");
                 otherPlane.goHome();
             }
         }

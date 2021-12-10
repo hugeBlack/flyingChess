@@ -16,9 +16,10 @@ public class PlayGround extends JPanel {
     private LinkedList<Plane> planes = new LinkedList<>();
     private GameManager gameManager;
 
-    public PlayGround(GameWindow gameWindow, GameManager gameManager) {
+    public PlayGround(GameManager gameManager) {
         this.gameManager = gameManager;
         setSize(680, 680);
+        setLocation(60, 60);
         addMouseMotionListener(new MouseMoveListener(planes, gameManager));
         addMouseListener(new MouseClickListener(planes, gameManager));
     }

@@ -7,7 +7,6 @@ import hb.flyingChess.logic.GameManager;
 import hb.flyingChess.ui.cells.CellUi;
 import hb.flyingChess.utils.MoveStatus;
 import hb.flyingChess.utils.MovementFlag;
-import hb.flyingChess.utils.TypeHelpers;
 
 public class TriangleGatewayCell extends TriangleCell {
     int destinationCellId;
@@ -35,11 +34,11 @@ public class TriangleGatewayCell extends TriangleCell {
     public void moveToAction(Plane plane, MoveStatus moveStatus) {
         if (moveStatus.movementFlag == MovementFlag.NORMAL_FORWARD && plane.getColor() == this.getColor()) {
             plane.moveTo(destinationCell);
-            String output=TypeHelpers.hColor2Str(plane.getColor())+"的飞机通过了航线";
+            String output=plane.getColor()+"的飞机通过了航线";
             for (Plane otherPlane : gameManager.getPlanes()) {
                 if (otherPlane.getColor() != this.getColor() && (otherPlane.getCurrentCell() == this.crashCell || otherPlane.getCurrentCell() == plane.getCurrentCell())) {
                     otherPlane.goHome();
-                    output+="并顺便击毁了"+TypeHelpers.hColor2Str(otherPlane.getColor())+"的飞机！";
+                    output+="并顺便击毁了"+otherPlane.getColor()+"的飞机！";
                 }
             }
             gameManager.outputMsg(output);

@@ -16,7 +16,7 @@ public class Main {
         GameManager gameManager = new GameManager("assets/map.txt",gameWindow,playerOrder);
         JButton rollDiceBtn = new JButton("丢骰子");
         gameWindow.add(rollDiceBtn);
-        rollDiceBtn.setBounds(100,700,80,30);
+        rollDiceBtn.setBounds(100,750,80,30);
         rollDiceBtn.addMouseListener(new RollDiceBtnClicked(gameManager));
     }
 }

@@ -26,14 +26,15 @@ public class Player extends Entity {
     public boolean getWonStatus() {
         return this.won;
     }
-    public void setWon(){
+
+    public void setWon() {
         this.won = true;
         this.wonMsgAnnounced = true;
     }
 
     public boolean testWon() {
-        for(Plane plane:planes){
-            if(!plane.isFinished()){
+        for (Plane plane : planes) {
+            if (!plane.isFinished()) {
                 return false;
             }
         }
@@ -44,9 +45,10 @@ public class Player extends Entity {
         return color;
     }
 
-    public boolean hasAvailablePlane(){
-        for(Plane plane:planes){
-            if(!(plane.getCurrentCell() instanceof AirportCell && plane.getCurrentCell() instanceof DestinationCell)){
+    public boolean hasAvailablePlane() {
+        for (Plane plane : planes) {
+            if (!(plane.getCurrentCell() instanceof AirportCell
+                    && !(plane.getCurrentCell() instanceof DestinationCell))) {
                 return true;
             }
         }

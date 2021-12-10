@@ -6,23 +6,26 @@ import java.util.LinkedList;
 import hb.flyingChess.entity.*;
 import hb.flyingChess.ui.GameWindow;
 import hb.flyingChess.ui.PlayGround;
+import hb.flyingChess.ui.StatusPanel;
 import hb.flyingChess.utils.HColor;
 import hb.flyingChess.utils.MapReader;
-import hb.flyingChess.utils.TypeHelpers;
 
 public class GameManager {
     private LinkedList<Player> players = new LinkedList<>();
     private int currentPlayerIndex = -1;
     private LinkedList<Plane> planes = new LinkedList<>();
     private PlayGround playGround;
+    private StatusPanel statusPanel;
     private int wonPlayerCount = 0;
     private boolean isGameEnded = false;
     private boolean isDiceRolled = false;
     private Dice dice = new Dice();
 
     public GameManager(String mapPath, GameWindow gameWindow, HColor[] playerOrder) throws FileNotFoundException {
-        playGround = new PlayGround(gameWindow, this);
+        playGround = new PlayGround(this);
+        statusPanel = new StatusPanel(this);
         gameWindow.add(playGround);
+        gameWindow.add(statusPanel);
         MapReader mapReader = new MapReader(mapPath, this);
         playGround.init(mapReader);
         this.planes = playGround.getPlanes();
@@ -63,7 +66,7 @@ public class GameManager {
         for (Player player : players) {
             if (player.testWon() && !player.wonMsgAnnounced) {
                 player.setWon();
-                outputMsg(TypeHelpers.hColor2Str(player.getColor()) + "的飞机全部达到了终点,获得了第" + (++wonPlayerCount) + "名!");
+                outputMsg(player.getColor() + "的飞机全部达到了终点,获得了第" + (++wonPlayerCount) + "名!");
             }
         }
         if (wonPlayerCount >= players.size()) {
@@ -85,9 +88,10 @@ public class GameManager {
             }
         }else{
             dice.useBouns();
-            outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"由于丢到6，额外获得一回合");
+            outputMsg(getCurrentPlayer().getColor()+"由于丢到6，额外获得一回合");
         }
-        outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"的回合，请丢骰子");
+        outputMsg(getCurrentPlayer().getColor()+"的回合，请丢骰子");
+        updateStatus();
     }
 
     public void rollDice(){
@@ -97,14 +101,18 @@ public class GameManager {
         }
         isDiceRolled = true;
         dice.roll();
-        outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"丢到了"+dice.getLastPoint()+"点");
+        outputMsg(getCurrentPlayer().getColor()+"丢到了"+dice.getLastPoint()+"点");
         if(!getCurrentPlayer().hasAvailablePlane() && dice.getLastPoint()<5){
-            outputMsg(TypeHelpers.hColor2Str(getCurrentPlayer().getColor())+"不能起飞，跳过这回合");
+            outputMsg(getCurrentPlayer().getColor()+"不能起飞，跳过这回合");
             nextTurn();
         }
     }
 
     public boolean getIsDiceRolled(){
         return isDiceRolled;
+    }
+
+    public void updateStatus(){
+        statusPanel.repaint();
     }
 }

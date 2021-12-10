@@ -12,5 +12,6 @@ public class RollDiceBtnClicked extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         gameManager.rollDice();
+        gameManager.updateStatus();
     }
 }

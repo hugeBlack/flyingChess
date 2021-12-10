@@ -17,21 +17,6 @@ public class TypeHelpers {
         }
     }
 
-    public static String hColor2Str(HColor hColor){
-        switch(hColor){
-            case BLUE:
-                return "蓝方";
-            case GREEN:
-                return "绿方";
-            case RED:
-                return "红方";
-            case YELLOW:
-                return "黄方";
-            default:
-                return null;
-        }
-    }
-
     public static HColor str2hColor(String strColor){
         switch(strColor.charAt(0)){
             case 'R':
