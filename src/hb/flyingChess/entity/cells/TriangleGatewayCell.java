@@ -41,7 +41,7 @@ public class TriangleGatewayCell extends TriangleCell {
                     output+="并顺便击毁了"+otherPlane.getColor()+"的飞机！";
                 }
             }
-            gameManager.outputMsg(output);
+            gameManager.outputMsg(output,false);
         }else{
             super.moveToAction(plane, moveStatus);
         }

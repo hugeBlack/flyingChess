@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class ReadyCellUi extends CellUi {
     public void draw(Graphics g) {
-        drawCircle(g);
+        super.draw(g);
     }
 
     public ReadyCellUi(Facing facing, HColor color, PlayGround playGround, HPoint pos) {

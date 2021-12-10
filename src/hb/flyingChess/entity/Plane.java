@@ -87,15 +87,15 @@ public class Plane extends Entity {
                 if (gameManager.getCurrentPlayer().getColor() == this.getColor()) {
                     if (this.currentCell instanceof AirportCell) {
                         if (gameManager.getNowDicePoint() > 4) {
-                            gameManager.outputMsg(this.getColor() + "的飞机起飞了");
+                            gameManager.outputMsg(this.getColor() + "的飞机起飞了",false);
                             move(1, MovementFlag.NORMAL_FORWARD);
                             gameManager.nextTurn();
                         } else {
-                            gameManager.outputMsg("你的点数不足5，飞机无法起飞，请选择其他飞机");
+                            gameManager.outputMsg("你的点数不足5，飞机无法起飞，请选择其他飞机",true);
                         }
                     } else {
                         if (this.currentCell instanceof DestinationCell) {
-                            gameManager.outputMsg("这架飞机已经到达终点了，请选择其他飞机");
+                            gameManager.outputMsg("这架飞机已经到达终点了，请选择其他飞机",true);
                         } else {
                             move(gameManager.getNowDicePoint(), MovementFlag.NORMAL_FORWARD);
                             gameManager.nextTurn();
@@ -104,10 +104,10 @@ public class Plane extends Entity {
                     }
                 } else {
                     gameManager.outputMsg("现在是你，" + gameManager.getCurrentPlayer().getColor() + "的回合，你不可以操作"
-                            + this.getColor() + "的飞机");
+                            + this.getColor() + "的飞机",true);
                 }
             } else {
-                gameManager.outputMsg("请先丢骰子再操作飞机");
+                gameManager.outputMsg("请先丢骰子再操作飞机",true);
             }
 
             return true;
@@ -116,7 +116,10 @@ public class Plane extends Entity {
     }
 
     public void moveTo(Cell destinationCell) {
+        Cell formerCell = this.currentCell;
         this.currentCell = destinationCell;
+        formerCell.updatePlaneCount();
+        destinationCell.updatePlaneCount();
         this.planeUi.centerPoint = destinationCell.getCenterPos();
         if (destinationCell == airportCell) {
             this.planeUi.lookingPoint = destinationCell.getCenterPos();

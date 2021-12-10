@@ -30,7 +30,7 @@ public class DestinationCell extends Cell {
 
     @Override
     public void moveToAction(Plane plane, MoveStatus moveStatus) {
-        gameManager.outputMsg(this.getColor()+"的飞机到达了终点！");
+        gameManager.outputMsg(this.getColor()+"的飞机到达了终点！",false);
         plane.setFinish();
         gameManager.updateWonStatus();
     }

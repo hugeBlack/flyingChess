@@ -7,7 +7,6 @@ public enum HColor {
 
     private HColor(String name) {
         this.name = name;
-
     }
 
     public String toString() {

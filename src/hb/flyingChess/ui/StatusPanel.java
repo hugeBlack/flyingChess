@@ -1,6 +1,7 @@
 package hb.flyingChess.ui;
 
 import java.awt.*;
+
 import javax.swing.JPanel;
 
 import hb.flyingChess.logic.GameManager;
@@ -11,12 +12,11 @@ public class StatusPanel extends JPanel{
         this.gameManager = gameManager;
         setSize(680, 55);
         setLocation(60, 5);
-        
     }
     @Override
     public void paint(Graphics g) {
         g.setColor(new Color(238, 238, 238));
-        g.fillRect(0, 0, 680, 100);
+        g.fillRect(0, 0, 680, 55);
         g.setColor(Color.black);
         Font font=new Font("宋体",Font.PLAIN,20);
         g.setFont(font);
@@ -35,7 +35,6 @@ public class StatusPanel extends JPanel{
     private Image getPlaneImage() {
         String imgFileName = "assets/plane_"+getColorStr()+"_u.png";
         return Toolkit.getDefaultToolkit().getImage(imgFileName);
-        
     }
 
     private String getColorStr() {

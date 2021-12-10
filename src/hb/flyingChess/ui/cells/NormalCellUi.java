@@ -13,7 +13,7 @@ public class NormalCellUi extends CellUi {
         } else {
             g.fillRect(this.pos.x, this.pos.y, 80, 40);
         }
-        drawCircle(g);
+        super.draw(g);
     }
 
     public NormalCellUi(Facing facing, HColor color, PlayGround playGround, HPoint pos) {

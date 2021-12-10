@@ -48,7 +48,7 @@ public class TriangleCellUi extends CellUi {
                 break;
         }
         g.fillPolygon(xs,ys,3);
-        drawCircle(g);
+        super.draw(g);
     }
 
     public TriangleCellUi(Facing facing, HColor color, PlayGround playGround, HPoint pos) {

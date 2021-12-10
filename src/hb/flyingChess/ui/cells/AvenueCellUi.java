@@ -10,7 +10,7 @@ public class AvenueCellUi extends CellUi {
     public void draw(Graphics g) {
         g.setColor(TypeHelpers.hColor2AwtColor(this.color));
         g.fillRect(this.pos.x, this.pos.y, 40, 40);
-        drawCircle(g);
+        super.draw(g);
     }
 
     public AvenueCellUi(Facing facing, HColor color, PlayGround playGround, HPoint pos){

@@ -6,7 +6,7 @@ import java.awt.*;
 public class GameWindow extends JFrame{
     public GameWindow(){
         setTitle("HBFlyingChess");
-        setSize(800,900);
+        setSize(800,950);
         int windowWidth = this.getWidth(); //获得窗口宽
         int windowHeight = this.getHeight();//获得窗口高
         Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
