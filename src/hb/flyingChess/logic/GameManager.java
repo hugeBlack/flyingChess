@@ -60,7 +60,7 @@ public class GameManager {
     }
 
     private void guiInit(String mapPath,GameWindow gameWindow) throws FileNotFoundException{
-        gameWindow.addWindowListener(new windowCloseListener(this, gameWindow));
+        gameWindow.addWindowListener(new WindowCloseListener(this, gameWindow));
 
         playGround = new PlayGround(this);
         statusPanel = new StatusPanel(this);

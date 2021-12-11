@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 
 import hb.flyingChess.ui.GameWindow;
 
-public class windowCloseListener extends WindowAdapter {
+public class WindowCloseListener extends WindowAdapter {
     GameManager gameManager;
     GameWindow gameWindow;
 
-    public windowCloseListener(GameManager gameManager, GameWindow gameWindow) {
+    public WindowCloseListener(GameManager gameManager, GameWindow gameWindow) {
         this.gameManager = gameManager;
         this.gameWindow = gameWindow;
     }

@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import hb.flyingChess.entity.Plane;
 import hb.flyingChess.entity.cells.*;
 import hb.flyingChess.logic.*;
-import hb.flyingChess.utils.*;
 
 public class PlayGround extends JPanel {
     private LinkedList<Cell> cells = new LinkedList<>();
