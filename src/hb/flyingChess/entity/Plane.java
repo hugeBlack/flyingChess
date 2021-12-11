@@ -38,6 +38,10 @@ public class Plane extends Entity {
         return currentCell;
     }
 
+    public Cell getAirportCell() {
+        return airportCell;
+    }
+
     private boolean isHoveredByMouse(int mouseX, int mouseY) {
         if (mouseX >= planeUi.centerPoint.x - 20 && mouseX < planeUi.centerPoint.x + 20
                 && mouseY >= planeUi.centerPoint.y - 20 && mouseY < planeUi.centerPoint.y + 20) {

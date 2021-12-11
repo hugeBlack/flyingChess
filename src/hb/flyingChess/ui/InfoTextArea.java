@@ -26,4 +26,8 @@ public class InfoTextArea extends JTextArea{
         }
         setText(content.toString());
     }
+
+    public LinkedList<String> getInfoList() {
+        return infoList;
+    }
 }

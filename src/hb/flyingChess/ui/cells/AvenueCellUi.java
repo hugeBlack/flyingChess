@@ -8,7 +8,7 @@ import java.awt.*;
 public class AvenueCellUi extends CellUi {
 
     public void draw(Graphics g) {
-        g.setColor(TypeHelpers.hColor2AwtColor(this.color));
+        g.setColor(this.color.getAwtColor());
         g.fillRect(this.pos.x, this.pos.y, 40, 40);
         super.draw(g);
     }

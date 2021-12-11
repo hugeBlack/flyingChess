@@ -58,4 +58,7 @@ public class MapReader {
     public LinkedList<AirportCell> getAirportCells(){
         return airportCells;
     }
+    public HashMap<Integer, Cell> getCellMap() {
+        return cellMap;
+    }
 }

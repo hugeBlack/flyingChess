@@ -1,11 +1,13 @@
 package hb.flyingChess.logic;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.*;
 
 import hb.flyingChess.entity.*;
+import hb.flyingChess.entity.cells.Cell;
 import hb.flyingChess.ui.GameWindow;
 import hb.flyingChess.ui.InfoTextArea;
 import hb.flyingChess.ui.PlayGround;
@@ -15,16 +17,16 @@ import hb.flyingChess.utils.MapReader;
 
 public class GameManager {
     private LinkedList<Player> players = new LinkedList<>();
-    private int currentPlayerIndex = -1;
+    public int currentPlayerIndex = -1;
     private LinkedList<Plane> planes = new LinkedList<>();
     private PlayGround playGround;
     private StatusPanel statusPanel;
     private int wonPlayerCount = 0;
     private boolean isGameEnded = false;
     private boolean isDiceRolled = false;
-    private Dice dice = new Dice();
+    public Dice dice = new Dice();
     private InfoTextArea infoBox = new InfoTextArea();
-
+    private HashMap<Integer, Cell> cellMap;
     public GameManager(String mapPath, GameWindow gameWindow, HColor[] playerOrder) throws FileNotFoundException {
         playGround = new PlayGround(this);
         statusPanel = new StatusPanel(this);
@@ -42,12 +44,13 @@ public class GameManager {
         jsp.setBounds(60, 750, 580, 120);
 
         JButton saveBtn = new JButton("保存游戏");
-        
         gameWindow.add(saveBtn);
         saveBtn.setBounds(650, 840, 90, 30);
+        saveBtn.addMouseListener(new SaveBtnClicked(this));
 
         MapReader mapReader = new MapReader(mapPath, this);
         playGround.init(mapReader);
+        this.cellMap = mapReader.getCellMap();
         this.planes = playGround.getPlanes();
         for (HColor hColor : playerOrder) {
             players.add(new Player(hColor, this));
@@ -68,8 +71,20 @@ public class GameManager {
         return playGround;
     }
 
+    public LinkedList<Player> getPlayers() {
+        return players;
+    }
+
+    public LinkedList<String> getInfoList(){
+        return infoBox.getInfoList();
+    }
+
     public int getNowDicePoint() {
         return dice.getLastPoint();
+    }
+
+    public HashMap<Integer, Cell> getCellMap(){
+        return cellMap;
     }
 
     public void outputMsg(String str,boolean isAlert) {

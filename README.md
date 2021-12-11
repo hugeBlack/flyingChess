@@ -2,6 +2,8 @@
 
 Java课大作业
 
+需要JDK1.8
+
 ## Folder Structure
 
 The workspace contains two folders by default, where:

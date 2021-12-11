@@ -7,7 +7,7 @@ import java.awt.*;
 public class NormalCellUi extends CellUi {
 
     public void draw(Graphics g) {
-        g.setColor(TypeHelpers.hColor2AwtColor(this.color));
+        g.setColor(this.color.getAwtColor());
         if (facing == Facing.LEFT || facing == Facing.RIGHT) {
             g.fillRect(this.pos.x, this.pos.y, 40, 80);
         } else {

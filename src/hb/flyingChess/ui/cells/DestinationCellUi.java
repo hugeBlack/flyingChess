@@ -9,7 +9,7 @@ public class DestinationCellUi extends CellUi {
     public void draw(Graphics g) {
         int[] xs = new int[3];
         int[] ys = new int[3];
-        g.setColor(TypeHelpers.hColor2AwtColor(this.color));
+        g.setColor(this.color.getAwtColor());
         switch(facing){
             case DOWN:
                 xs[0] = pos.x;
