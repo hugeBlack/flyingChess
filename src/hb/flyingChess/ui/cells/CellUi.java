@@ -25,7 +25,7 @@ public class CellUi implements Drawable {
         g.fillOval(this.center.x - 16, this.center.y - 16, 30, 30);
         if (planeCount > 1) {
             g.setColor(Color.black);
-            g.drawString(planeCount + "", this.center.x + 16, this.center.y + 16);
+            g.drawString(planeCount + "", this.center.x + 14, this.center.y + 16);
         }
     }
 }

@@ -20,8 +20,8 @@ public class PlayGround extends JPanel {
         this.gameManager = gameManager;
         setSize(680, 680);
         setLocation(60, 60);
-        addMouseMotionListener(new MouseMoveListener(planes, gameManager));
-        addMouseListener(new MouseClickListener(planes, gameManager));
+        addMouseMotionListener(new MouseMoveListener(gameManager));
+        addMouseListener(new MouseClickListener(gameManager));
     }
 
     public void paint(Graphics g) {
@@ -44,5 +44,9 @@ public class PlayGround extends JPanel {
 
     public LinkedList<Plane> getPlanes() {
         return this.planes;
+    }
+
+    public void setPlanes(LinkedList<Plane> planes){
+        this.planes = planes;
     }
 }

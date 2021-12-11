@@ -1,19 +1,18 @@
 package hb.flyingChess.logic;
 
 import java.awt.event.*;
-import java.util.LinkedList;
 
 import hb.flyingChess.entity.Plane;
 
 public class MouseMoveListener extends MouseMotionAdapter {
-    private LinkedList<Plane> planes;
+    private GameManager gameManager;
 
-    public MouseMoveListener(LinkedList<Plane> planes, GameManager gameManager) {
-        this.planes = planes;
+    public MouseMoveListener(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     public void mouseMoved(MouseEvent e) {
-        for (Plane plane : planes) {
+        for (Plane plane : gameManager.getPlanes()) {
             plane.mouseHoverEventHandler(e.getX(), e.getY());
         }
     }

@@ -1,6 +1,7 @@
 package hb.flyingChess.logic;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -21,13 +22,45 @@ public class GameManager {
     private LinkedList<Plane> planes = new LinkedList<>();
     private PlayGround playGround;
     private StatusPanel statusPanel;
-    private int wonPlayerCount = 0;
+    public int wonPlayerCount = 0;
     private boolean isGameEnded = false;
     private boolean isDiceRolled = false;
-    public Dice dice = new Dice();
+    public Dice dice;
     private InfoTextArea infoBox = new InfoTextArea();
     private HashMap<Integer, Cell> cellMap;
     public GameManager(String mapPath, GameWindow gameWindow, HColor[] playerOrder) throws FileNotFoundException {
+        guiInit(mapPath,gameWindow);
+        this.planes = playGround.getPlanes();
+        for (HColor hColor : playerOrder) {
+            players.add(new Player(hColor, this));
+        }
+        dice = new Dice();
+        playGround.repaint();
+        outputMsg("游戏开始!",false);
+        nextTurn();
+    }
+
+    public GameManager(String mapPath, GameWindow gameWindow, String savePath) throws FileNotFoundException,IOException{
+        guiInit(mapPath,gameWindow);
+        SaveManager saveManager = new SaveManager(this);
+        saveManager.load(savePath);
+        playGround.setPlanes(saveManager.getPlanes());
+        planes = saveManager.getPlanes();
+        infoBox.setInfo(saveManager.getInfoList());
+        dice = new Dice(saveManager.lastDicePoint,saveManager.hasBonusUsed);
+        isDiceRolled = saveManager.hasDiceRolled;
+        players = saveManager.getPlayers();
+        currentPlayerIndex = saveManager.currentPlayerId;
+        wonPlayerCount = saveManager.wonPlayerCount;
+        for(Plane plane:planes){
+            plane.getCurrentCell().updatePlaneCount();
+        }
+        playGround.repaint();
+        outputMsg("存档已加载。",false);
+        updateStatus();
+    }
+
+    private void guiInit(String mapPath,GameWindow gameWindow) throws FileNotFoundException{
         playGround = new PlayGround(this);
         statusPanel = new StatusPanel(this);
         gameWindow.add(playGround);
@@ -50,13 +83,7 @@ public class GameManager {
 
         MapReader mapReader = new MapReader(mapPath, this);
         playGround.init(mapReader);
-        this.cellMap = mapReader.getCellMap();
-        this.planes = playGround.getPlanes();
-        for (HColor hColor : playerOrder) {
-            players.add(new Player(hColor, this));
-        }
-        playGround.repaint();
-        start();
+        cellMap = mapReader.getCellMap();
     }
 
     public Player getCurrentPlayer() {
@@ -94,11 +121,6 @@ public class GameManager {
             infoBox.addText(str);
         }
         
-    }
-
-    public void start() {
-        outputMsg("游戏开始!",false);
-        nextTurn();
     }
 
     public void updateWonStatus() {

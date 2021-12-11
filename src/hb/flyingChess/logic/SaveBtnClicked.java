@@ -7,8 +7,6 @@ import java.nio.file.FileAlreadyExistsException;
 
 import javax.swing.JOptionPane;
 
-import hb.flyingChess.SaveManager;
-
 import java.awt.Container;
 
 public class SaveBtnClicked extends MouseAdapter {
@@ -46,7 +44,7 @@ public class SaveBtnClicked extends MouseAdapter {
         boolean forceOverwrite = false;
         while (!operationFinished) {
             try {
-                saveManager.save(savePath + (savePath.equals("") ? "": "/") + saveFileName, forceOverwrite);
+                saveManager.save(savePath + (savePath.equals("") ? "": "\\") + saveFileName, forceOverwrite);
                 operationFinished = true;
                 JOptionPane.showMessageDialog(gameWindow, "保存成功", "保存游戏", JOptionPane.INFORMATION_MESSAGE);
             } catch (FileAlreadyExistsException ex) {
