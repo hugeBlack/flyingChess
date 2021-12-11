@@ -1,10 +1,9 @@
-package hb.flyingChess.utils;
+package hb.flyingChess.logic;
 
 import java.io.*;
 import java.util.*;
 
 import hb.flyingChess.entity.cells.*;
-import hb.flyingChess.logic.GameManager;
 
 public class MapReader {
     private LinkedList<Cell> cells = new LinkedList<>();

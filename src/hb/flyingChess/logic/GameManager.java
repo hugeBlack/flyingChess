@@ -14,7 +14,6 @@ import hb.flyingChess.ui.InfoTextArea;
 import hb.flyingChess.ui.PlayGround;
 import hb.flyingChess.ui.StatusPanel;
 import hb.flyingChess.utils.HColor;
-import hb.flyingChess.utils.MapReader;
 
 public class GameManager {
     private LinkedList<Player> players = new LinkedList<>();
