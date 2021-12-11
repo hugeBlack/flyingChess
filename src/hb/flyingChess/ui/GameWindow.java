@@ -17,5 +17,6 @@ public class GameWindow extends JFrame{
         setLocation(screenWidth/2-windowWidth/2, screenHeight/2-windowHeight/2);//设置窗口居中显示
         setLayout(null);
         setVisible(true);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 }

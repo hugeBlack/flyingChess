@@ -1,9 +1,9 @@
 /*
 save file patten:
-P AIRPORT_CELL_ID CURRENT_CELL_ID (x16) (P int int)
-O (R,G,B,Y) (x4) (O char)
-I GAME_INFOMATION (xN) (I string)
-G NOW_PLAYER_ID HAS_DICE_ROLLED LAST_DICE_POINT HAS_BONUS_USED (G int bool int bool)
+Plane AIRPORT_CELL_ID CURRENT_CELL_ID (x16) (int int)
+Player (R,G,B,Y) (x4) (char)
+Info GAME_INFOMATION (xN) (string)
+Game NOW_PLAYER_ID HAS_DICE_ROLLED LAST_DICE_POINT HAS_BONUS_USED wonPlayerCount(int bool int bool int)
 */
 package hb.flyingChess.logic;
 
@@ -41,20 +41,20 @@ public class SaveManager {
             planes = new LinkedList<>();
             players = new LinkedList<>();
             infoList = new LinkedList<>();
-            int planeCount=dataInputStream.readInt();
-            for (int i =0;i<planeCount;i++) {
+            int planeCount = dataInputStream.readInt();
+            for (int i = 0; i < planeCount; i++) {
                 Plane plane = new Plane((AirportCell) gameManager.getCellMap().get(dataInputStream.readInt()),
                         gameManager);
                 plane.moveTo(gameManager.getCellMap().get(dataInputStream.readInt()));
                 planes.add(plane);
             }
             int playerCount = dataInputStream.readInt();
-            for (int i =0;i<playerCount;i++) {
+            for (int i = 0; i < playerCount; i++) {
                 Player player = new Player(TypeHelpers.str2hColor(dataInputStream.readChar() + ""), gameManager);
                 players.add(player);
             }
             int infoCount = dataInputStream.readInt();
-            for (int i =0;i<infoCount;i++) {
+            for (int i = 0; i < infoCount; i++) {
                 infoList.add(dataInputStream.readUTF());
             }
             if (dataInputStream.readChar() == 'G') {
@@ -93,7 +93,9 @@ public class SaveManager {
             }
             dataOutputStream.writeInt(infoList.size());
             for (String info : infoList) {
-                dataOutputStream.writeUTF(info);
+                if (!info.equals("存档已加载。")) {
+                    dataOutputStream.writeUTF(info);
+                }
             }
             dataOutputStream.writeChar('G');
             dataOutputStream.writeInt(gameManager.currentPlayerIndex);

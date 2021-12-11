@@ -61,6 +61,8 @@ public class GameManager {
     }
 
     private void guiInit(String mapPath,GameWindow gameWindow) throws FileNotFoundException{
+        gameWindow.addWindowListener(new windowCloseListener(this, gameWindow));
+
         playGround = new PlayGround(this);
         statusPanel = new StatusPanel(this);
         gameWindow.add(playGround);
@@ -104,6 +106,10 @@ public class GameManager {
 
     public LinkedList<String> getInfoList(){
         return infoBox.getInfoList();
+    }
+
+    public boolean getGameEnded(){
+        return isGameEnded;
     }
 
     public int getNowDicePoint() {
