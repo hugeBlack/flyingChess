@@ -30,14 +30,10 @@ public class InfoTextArea extends JTextArea {
     }
 
     private void updateGui() {
-        StringBuilder content = new StringBuilder("");
         Iterator<String> it = infoList.iterator();
+        setText("");
         while (it.hasNext()) {
-            content.append(it.next());
-            if (it.hasNext()) {
-                content.append("\n");
-            }
+            append(it.next()+"\n");
         }
-        setText(content.toString());
     }
 }

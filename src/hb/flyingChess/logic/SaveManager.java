@@ -91,7 +91,13 @@ public class SaveManager {
             for (Player player : players) {
                 dataOutputStream.writeChar(player.getColor().getChar());
             }
-            dataOutputStream.writeInt(infoList.size());
+            int textCount = infoList.size();
+            for (String info : infoList) {
+                if (!info.equals("存档已加载。")) {
+                    textCount--;
+                }
+            }
+            dataOutputStream.writeInt(textCount);
             for (String info : infoList) {
                 if (!info.equals("存档已加载。")) {
                     dataOutputStream.writeUTF(info);
