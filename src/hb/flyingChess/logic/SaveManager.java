@@ -13,12 +13,13 @@ import java.util.LinkedList;
 import hb.flyingChess.entity.Plane;
 import hb.flyingChess.entity.Player;
 import hb.flyingChess.entity.cells.AirportCell;
+import hb.flyingChess.utils.HColor;
 import hb.flyingChess.utils.TypeHelpers;
 
 public class SaveManager {
     private GameManager gameManager;
     private LinkedList<Plane> planes;
-    private LinkedList<Player> players;
+    private LinkedList<HColor> playersColor;
     private LinkedList<String> infoList;
     public int currentPlayerId;
     public boolean hasDiceRolled;
@@ -39,7 +40,7 @@ public class SaveManager {
                 throw new IOException();
             }
             planes = new LinkedList<>();
-            players = new LinkedList<>();
+            playersColor = new LinkedList<>();
             infoList = new LinkedList<>();
             int planeCount = dataInputStream.readInt();
             for (int i = 0; i < planeCount; i++) {
@@ -48,10 +49,10 @@ public class SaveManager {
                 plane.moveTo(gameManager.getCellMap().get(dataInputStream.readInt()));
                 planes.add(plane);
             }
+            
             int playerCount = dataInputStream.readInt();
             for (int i = 0; i < playerCount; i++) {
-                Player player = new Player(TypeHelpers.str2hColor(dataInputStream.readChar() + ""), gameManager);
-                players.add(player);
+                playersColor.add(TypeHelpers.str2hColor(dataInputStream.readChar()+""));
             }
             int infoCount = dataInputStream.readInt();
             for (int i = 0; i < infoCount; i++) {
@@ -78,7 +79,7 @@ public class SaveManager {
         }
         DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(file));
         planes = gameManager.getPlanes();
-        players = gameManager.getPlayers();
+        LinkedList<Player> players = gameManager.getPlayers();
         infoList = gameManager.getInfoList();
         try {
             dataOutputStream.writeUTF("HBFLYINGCHESSSAVE");
@@ -93,7 +94,7 @@ public class SaveManager {
             }
             int textCount = infoList.size();
             for (String info : infoList) {
-                if (!info.equals("存档已加载。")) {
+                if (info.equals("存档已加载。")) {
                     textCount--;
                 }
             }
@@ -121,8 +122,8 @@ public class SaveManager {
         return planes;
     }
 
-    public LinkedList<Player> getPlayers() {
-        return players;
+    public LinkedList<HColor> getPlayersColor() {
+        return playersColor;
     }
 
     public LinkedList<String> getInfoList() {

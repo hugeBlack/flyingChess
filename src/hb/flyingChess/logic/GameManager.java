@@ -48,7 +48,10 @@ public class GameManager {
         infoBox.setInfo(saveManager.getInfoList());
         dice = new Dice(saveManager.lastDicePoint,saveManager.hasBonusUsed);
         isDiceRolled = saveManager.hasDiceRolled;
-        players = saveManager.getPlayers();
+        LinkedList<HColor> playersColor = saveManager.getPlayersColor();
+        for(HColor playerColor:playersColor){
+            players.add(new Player(playerColor,this));
+        }
         currentPlayerIndex = saveManager.currentPlayerId;
         wonPlayerCount = saveManager.wonPlayerCount;
         for(Plane plane:planes){

@@ -61,8 +61,6 @@ public class SaveBtnClicked extends MouseAdapter {
                 ex.printStackTrace();
                 operationFinished = true;
             }
-            System.out.println(1);
         }
-
     }
 }
